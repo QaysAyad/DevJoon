@@ -55,7 +55,7 @@ class _HandcraftPageState extends State<HandcraftPage> {
                           .collection('users')
                           .doc(kUserId)
                           .collection('questions')
-                          .orderBy('createdAt')
+                          .orderBy('createdAt', descending: true)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting)

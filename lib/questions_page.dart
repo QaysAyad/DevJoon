@@ -10,6 +10,7 @@ class QuestionsPage extends StatefulWidget {
 }
 
 class _QuestionsPageState extends State<QuestionsPage> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _answer = TextEditingController();
 
   @override
@@ -44,54 +45,72 @@ class _QuestionsPageState extends State<QuestionsPage> {
                     itemBuilder: (context, index) {
                       Question question = questions[index];
                       if (question.answer == null)
-                        return Column(
-                          children: [
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(question.question)),
-                            TextFormField(
-                                maxLines: null,
-                                controller: _answer,
-                                decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).primaryColor,
-                                        width: 2),
+                        return Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(question.question)),
+                              TextFormField(
+                                  maxLines: null,
+                                  controller: _answer,
+                                  decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).errorColor,
+                                          width: 2),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).errorColor,
+                                          width: 2),
+                                    ),
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).primaryColor,
-                                        width: 2),
+                                  autovalidate: true,
+                                  validator: (_value) => _value.isEmpty
+                                      ? 'Please enter some text'
+                                      : null),
+                              MaterialButton(
+                                  minWidth: double.infinity,
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Colors.white,
+                                  child: Text(
+                                    'Answer',
                                   ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).errorColor,
-                                        width: 2),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).errorColor,
-                                        width: 2),
-                                  ),
-                                ),
-                                autovalidate: true,
-                                validator: (_value) => _value.isEmpty
-                                    ? 'Please enter some text'
-                                    : null),
-                            MaterialButton(
-                                minWidth: double.infinity,
-                                color: Theme.of(context).primaryColor,
-                                textColor: Colors.white,
-                                child: Text(
-                                  'Answer',
-                                ),
-                                onPressed: () {
-                                  question.answer = _answer.value.text;
-                                  snapshot.data.docs[index].reference
-                                      .update(question.toJson());
-                                  //FirebaseFirestore.instance.doc(documentPath)
-                                }),
-                          ],
+                                  onPressed: () async {
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content:
+                                                  Text('Processing Data')));
+                                      try {
+                                        question.answer = _answer.value.text;
+                                        await snapshot
+                                            .data.docs[index].reference
+                                            .update(question.toJson());
+                                      } catch (e) {
+                                        print(e);
+                                        Scaffold.of(context).showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    'Something went wrong')));
+                                      }
+                                    }
+                                  }),
+                            ],
+                          ),
                         );
                       return ListTile(
                         title: Text(question.question),
@@ -104,37 +123,5 @@ class _QuestionsPageState extends State<QuestionsPage> {
                 );
               }),
         ));
-  }
-
-  TextFormField buildTextFormField(
-    BuildContext context,
-    String labelText,
-    TextEditingController _question1,
-  ) {
-    return TextFormField(
-        maxLines: null,
-        controller: _question1,
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).primaryColor, width: 2),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).primaryColor, width: 2),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).errorColor, width: 2),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).errorColor, width: 2),
-          ),
-          labelText: labelText,
-        ),
-        autovalidate: true,
-        validator: (_value) =>
-            _value.isEmpty ? 'Please enter some text' : null);
   }
 }

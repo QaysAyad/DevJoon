@@ -32,10 +32,7 @@ class _AskQuestionPageState extends State<AskQuestionPage> {
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () async {
-                        // Validate returns true if the form is valid, otherwise false.
                         if (_formKey.currentState.validate()) {
-                          // If the form is valid, display a snackbar. In the real world,
-                          // you'd often call a server or save the information in a database.
                           _formKey.currentState.save();
                           Scaffold.of(context).showSnackBar(
                               SnackBar(content: Text('Processing Data')));
