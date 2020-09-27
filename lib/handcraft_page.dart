@@ -19,7 +19,6 @@ class HandcraftPage extends StatefulWidget {
 }
 
 class _HandcraftPageState extends State<HandcraftPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

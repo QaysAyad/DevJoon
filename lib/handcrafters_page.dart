@@ -27,7 +27,6 @@ class _HandcraftersPageState extends State<HandcraftersPage> {
             return Container(
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                
                   border: Border.all(
                     color: Theme.of(context).primaryColor,
                   ),
@@ -38,8 +37,7 @@ class _HandcraftersPageState extends State<HandcraftersPage> {
                 itemBuilder: (context, index) {
                   User user = users[index];
                   return ListTile(
-                                        title: Text('User id: ' +user.id),
-
+                    title: Text('User id: ' + user.id),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(

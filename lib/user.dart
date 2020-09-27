@@ -7,13 +7,14 @@ class User {
   String question3;
   String question4;
   Timestamp createdAt;
-  User(
-      {this.id,
-      this.question1,
-      this.question2,
-      this.question3,
-      this.question4,
-      this.createdAt,});
+  User({
+    this.id,
+    this.question1,
+    this.question2,
+    this.question3,
+    this.question4,
+    this.createdAt,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(

@@ -17,47 +17,49 @@ class _AskQuestionPageState extends State<AskQuestionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Ask Querstion')),
-      body:Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: ListView(
-                  children: [
-                    buildTextFormField(context, 'What is your question?', _question1),
-                    SizedBox(height: 16),
-                    Builder(builder: (context) {
-                      return MaterialButton(
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        onPressed: () async {
-                          // Validate returns true if the form is valid, otherwise false.
-                          if (_formKey.currentState.validate()) {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-                            _formKey.currentState.save();
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
-                           try{ await FirebaseFirestore.instance
+        appBar: AppBar(title: Text('Ask Querstion')),
+        body: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: ListView(
+                children: [
+                  buildTextFormField(
+                      context, 'What is your question?', _question1),
+                  SizedBox(height: 16),
+                  Builder(builder: (context) {
+                    return MaterialButton(
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      onPressed: () async {
+                        // Validate returns true if the form is valid, otherwise false.
+                        if (_formKey.currentState.validate()) {
+                          // If the form is valid, display a snackbar. In the real world,
+                          // you'd often call a server or save the information in a database.
+                          _formKey.currentState.save();
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text('Processing Data')));
+                          try {
+                            await FirebaseFirestore.instance
                                 .collection('users')
-                                .doc(kUserId).collection('questions')
-                                .add(Question(question:_question1.value.text).toJson());
+                                .doc(kUserId)
+                                .collection('questions')
+                                .add(Question(question: _question1.value.text)
+                                    .toJson());
                             Navigator.pop(context);
-                             } catch (e) {
-                              print(e);
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text('Something went wrong')));
-                            }
+                          } catch (e) {
+                            print(e);
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text('Something went wrong')));
                           }
-                        },
-                        child: Text('Submit'),
-                      );
-                    }),
-                  ],
-                ),
-              )
-            )
-    );
+                        }
+                      },
+                      child: Text('Submit'),
+                    );
+                  }),
+                ],
+              ),
+            )));
   }
 
   TextFormField buildTextFormField(

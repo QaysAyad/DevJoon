@@ -29,7 +29,6 @@ class _DesignerPageState extends State<DesignerPage> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: <Widget>[
-      
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(8),
@@ -53,21 +52,20 @@ class _DesignerPageState extends State<DesignerPage> {
                             .toList();
                         print(images);
                         return Wrap(
-                          children:images.map((e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.cover,
-                                  height: 100,
-                                  width: 100,
-                                  imageUrl: e,
-                                ),
-                              ),
-                          )).toList()
-                        
-                          
-                        );
+                            children: images
+                                .map((e) => Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          height: 100,
+                                          width: 100,
+                                          imageUrl: e,
+                                        ),
+                                      ),
+                                    ))
+                                .toList());
                       }),
                 ),
               ),
@@ -89,18 +87,18 @@ class _DesignerPageState extends State<DesignerPage> {
                   ),
                   Builder(
                     builder: (context) => MaterialButton(
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        child: Text(
-                          'Handcrafters',
-                        ),
-                        onPressed: () 
-                         => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HandcraftersPage(),
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      child: Text(
+                        'Handcrafters',
                       ),
-                    ),),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HandcraftersPage(),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

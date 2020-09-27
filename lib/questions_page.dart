@@ -22,7 +22,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
           child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collectionGroup('questions')
-                  .orderBy('createdAt',descending: true)
+                  .orderBy('createdAt', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting)
@@ -47,8 +47,8 @@ class _QuestionsPageState extends State<QuestionsPage> {
                         return Column(
                           children: [
                             Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(question.question)),
+                                alignment: Alignment.centerLeft,
+                                child: Text(question.question)),
                             TextFormField(
                                 maxLines: null,
                                 controller: _answer,
@@ -78,20 +78,19 @@ class _QuestionsPageState extends State<QuestionsPage> {
                                 validator: (_value) => _value.isEmpty
                                     ? 'Please enter some text'
                                     : null),
-                           MaterialButton(
+                            MaterialButton(
                                 minWidth: double.infinity,
-                                  color: Theme.of(context).primaryColor,
-                                  textColor: Colors.white,
-                                  child: Text(
-                                    'Answer',
-                                  ),
-                                  onPressed: () {
-                                    question.answer = _answer.value.text;
-                                    snapshot.data.docs[index].reference
-                                        .update(question.toJson());
-                                    //FirebaseFirestore.instance.doc(documentPath)
-                                  }),
-                            
+                                color: Theme.of(context).primaryColor,
+                                textColor: Colors.white,
+                                child: Text(
+                                  'Answer',
+                                ),
+                                onPressed: () {
+                                  question.answer = _answer.value.text;
+                                  snapshot.data.docs[index].reference
+                                      .update(question.toJson());
+                                  //FirebaseFirestore.instance.doc(documentPath)
+                                }),
                           ],
                         );
                       return ListTile(
