@@ -77,7 +77,8 @@ class _QuestionsPageState extends State<QuestionsPage> {
                                           width: 2),
                                     ),
                                   ),
-                                  autovalidate: true,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   validator: (_value) => _value.isEmpty
                                       ? 'Please enter some text'
                                       : null),
