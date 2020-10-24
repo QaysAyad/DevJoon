@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devjoon/data.dart';
-import 'package:devjoon/user.dart';
+import 'package:devjoon/models/data.dart';
+import 'package:devjoon/models/user.dart';
 import 'package:flutter/material.dart';
 
 class AboutMePage extends StatefulWidget {

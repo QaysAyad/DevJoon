@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devjoon/question.dart';
+import 'package:devjoon/models/question.dart';
 import 'package:flutter/material.dart';
 
 class QuestionsPage extends StatefulWidget {

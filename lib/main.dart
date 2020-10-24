@@ -1,5 +1,5 @@
-import 'package:devjoon/designer_page.dart';
-import 'package:devjoon/handcraft_page.dart';
+import 'package:devjoon/designers/designer_page.dart';
+import 'package:devjoon/handcrafters/handcraft_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

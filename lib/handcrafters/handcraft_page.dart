@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devjoon/ask_question_page.dart';
-import 'package:devjoon/data.dart';
-import 'package:devjoon/question.dart';
-import 'package:devjoon/aboutme_page.dart';
+import 'package:devjoon/handcrafters/ask_question_page.dart';
+import 'package:devjoon/models/data.dart';
+import 'package:devjoon/models/question.dart';
+import 'package:devjoon/shared/aboutme_page.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

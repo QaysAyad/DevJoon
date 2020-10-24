@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devjoon/data.dart';
-import 'package:devjoon/handcrafters_page.dart';
-import 'package:devjoon/questions_page.dart';
+import 'package:devjoon/models/data.dart';
+import 'package:devjoon/designers/handcrafters_page.dart';
+import 'package:devjoon/designers/questions_page.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

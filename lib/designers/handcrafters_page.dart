@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devjoon/aboutme_page.dart';
-import 'package:devjoon/user.dart';
+import 'package:devjoon/shared/aboutme_page.dart';
+import 'package:devjoon/models/user.dart';
 import 'package:flutter/material.dart';
 
 class HandcraftersPage extends StatefulWidget {
