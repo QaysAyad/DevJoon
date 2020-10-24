@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devjoon/shared/aboutme_page.dart';
+import 'package:devjoon/designers/handcraft_page.dart';
 import 'package:devjoon/models/user.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +41,9 @@ class _HandcraftersPageState extends State<HandcraftersPage> {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AboutMePage(),
+                        builder: (context) => HandcraftPage(
+                          user: user,
+                        ),
                       ),
                     ),
                   );
