@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devjoon/designers/add_product_page.dart';
 import 'package:devjoon/models/product.dart';
 import 'package:devjoon/models/user.dart';
+import 'package:devjoon/shared/product_page.dart';
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatelessWidget {
@@ -21,27 +22,28 @@ class ProductsPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Code: " + user.id),
-                  MaterialButton(
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
-                    child: Text(
-                      'Add Product',
-                    ),
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddProductPage(
-                          user: user,
+              if (isDesigner)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Code: " + user.id),
+                    MaterialButton(
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      child: Text(
+                        'Add Product',
+                      ),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddProductPage(
+                            user: user,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
               Expanded(
                   child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
@@ -68,6 +70,15 @@ class ProductsPage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               Product product = products[index];
                               return ListTile(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductPage(
+                                      user: user,
+                                      product: product,
+                                    ),
+                                  ),
+                                ),
                                 title: Text(product.name),
                                 subtitle: Text('Steps: ' +
                                     product.steps.length.toString()),
